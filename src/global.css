@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+:root{
+ --white: #ffff;
+ --gray-100:#e1e1e6;
+ --gray-300:#c4c4cc;
+ --gray-400:#8d8d99;
+ --gray-600:#323239;
+ --gray-700:#29292e;
+ --gray-800:#202024;
+ --gray-900:#121214;
+
+ --green:#00875f;
+ --light-green:#00B37E;
+ 
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background: var(--gray-900);
+    color: var(--gray-300);
+    -webkit-font-smoothing: antialiased;
+    /* padroniza as fonts deixando elas mais detalhadas , só em browsers que tenham o webkit */
+}
+
+body,input,textarea,button{
+    font-family:'roboto',sans-serif ;
+    font-weight: 400;
+    font-size: 1rem;
+    /* se comporta perante a acessibilidade, por exemplo quando a pessoa aumenta ou diminui a letra  */
+}
