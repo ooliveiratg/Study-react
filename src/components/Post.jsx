@@ -1,19 +1,38 @@
- import { Avatar } from './Avatar';
+// biblioteca para formatar data
+import {format, formatDistanceToNow} from 'date-fns';
+// para pegar o idioma
+import ptBR from 'date-fns/locale/pt-BR'
+//  
+import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css'
  
- export function Post(){
+ export function Post({author , published}){
+
+    const publishedDateFormated = format(published,"d 'de' LLLL 'de' y",{
+        locale:ptBR,
+    })
+
+    const publishedNow= formatDistanceToNow(published, {
+        locale:ptBR,
+        addSuffix:true,
+    })
+   
     return (
         <article className={styles.post}>
             <header >
                 <div className={styles.author}>
-                <Avatar hasBorder={true} src="https://github.com/ooliveiratg.png"/>
+                <Avatar hasBorder={true} src={author.avatarUrl}/>
                 <div className={styles.authorInfo}>
-                <strong className="author">Thiago Oliveira</strong>
-                <span className="authorInfo">Web Developer</span>
+                <strong className="author">{author.name}</strong>
+                <span className="authorInfo">{author.role}</span>
                 </div>
                 </div>
-                    <time title='16 de fervereiro de 2025' datetime="2025-02-16"> Publicado a 1h</time>
+                    <time title='' dateTime="2025-02-16"> 
+
+                    {published.toString()}    
+                    
+                    </time>
             </header>
             <div className={styles.content}>
                 <p>Fala galeraa 👋</p>
