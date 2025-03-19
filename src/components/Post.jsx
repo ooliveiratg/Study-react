@@ -6,10 +6,24 @@ import ptBR from 'date-fns/locale/pt-BR'
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css'
+import { Key } from 'phosphor-react';
+import { useState } from 'react';
  
- export function Post({author , published}){
 
-    const publishedDateFormated = format(published,"d 'de' LLLL 'de' y",{
+
+ export function Post({author , published, content}){
+        //Estado
+
+    const [comment,setComments] = useState(
+        [
+            'post muito bacana'
+    
+        ]
+    )
+
+    const [newCommentText, setNewCommentText] = useState('')
+
+    const publishedDateFormated = format(published,"d 'de' LLLL 'de' HH:mm 'h'",{
         locale:ptBR,
     })
 
@@ -17,9 +31,29 @@ import styles from './Post.module.css'
         locale:ptBR,
         addSuffix:true,
     })
+
+    function newCommentChange (){
+        setNewCommentText(event.target.value)
+       
+    }
    
+    function CreateNewCommet(){
+        event.preventDefault()
+
+        // sempre retorna o elemento que está recebendo aquele evento
+        // console.log(event.target)
+        
+        //imutabilidade
+        setComments([...comment, newCommentText])
+        //setComments([...comment,comment.length + 1]) serve para quando a pessoa escrever no textarea e clicar em enviar gera um comentario
+
+        setNewCommentText(' ')
+    }
+
     return (
-        <article className={styles.post}>
+        <article className=
+        
+        {styles.post}>
             <header >
                 <div className={styles.author}>
                 <Avatar hasBorder={true} src={author.avatarUrl}/>
@@ -28,28 +62,36 @@ import styles from './Post.module.css'
                 <span className="authorInfo">{author.role}</span>
                 </div>
                 </div>
-                    <time title='' dateTime="2025-02-16"> 
+                    <time title={publishedDateFormated} dateTime={published.toISOString()}> 
 
-                    {published.toString()}    
+                    {publishedNow}    
                     
                     </time>
             </header>
             <div className={styles.content}>
-                <p>Fala galeraa 👋</p>
-                <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-                <p> <i>👉</i> <a href=""> github.com/ooliveiratg </a></p>
-                <p>
-                   <a href="">#novoprojeto</a>
-                   <a href="">#nlw</a>
-                   <a href="">#rocketseat</a>
-                </p>
-
+               {content.map((line,id) => {
+                
+                if(line.type == 'paragraph'){
+                    return(
+                        <p key={line.content}>{line.content}</p>
+                    )
+                }else if(line.type == 'link'){
+                    return(
+                        <p key={line.content}><a href="https://github.com/ooliveiratg">{line.content}</a></p>
+                    )
+                }
+               })}
+            
             </div>
-            <form className={styles.commentForm}>
+            <form onSubmit={CreateNewCommet} className={styles.commentForm}>
 
                 <strong>Deixe seu feedback</strong>
 
-                <textarea placeholder='Deixe seu comentário'/>
+                <textarea 
+                onChange={newCommentChange}
+                name='comment'
+                value={newCommentText}
+                placeholder='Deixe seu comentário'/>
 
                 <footer>
                     <button type='submit'>Publicar</button>
@@ -57,8 +99,14 @@ import styles from './Post.module.css'
             </form>
 
            <div className={styles.commentList}>
-                <Comment/>
-           </div>
-        </article>
-    );
- }
+               {comment.map((comment,index)=> {
+                    return( 
+                    
+                    <Comment key={comment} content={comment}/>
+                    )
+               })}
+               </div>
+               </article>
+    ) 
+}
+
