@@ -1,6 +1,6 @@
 import { Header } from './components/Header'
 import { Sidebar } from './components/Sidebar';
-import { Post } from './components/Post';
+import { Post,PostType } from './components/Post';
 import styles from './App.module.css'
 import './global.css'
 
@@ -18,7 +18,7 @@ export default function App(){
     // publish:Date
     // contentPost: String
 
-    const posts = [
+    const posts: PostType[] = [
       //um objeto dentro de um array para pegar cada post separado por indices
       {
         id:1,
@@ -77,11 +77,8 @@ export default function App(){
     {posts.map((post,id) => {
       return ( 
       <Post
-      key={post.id}
-      author = {post.author}
-      content={post.content}
-      published={post.published}
-
+      key={id}
+      post={post}
       />
       )
       })
