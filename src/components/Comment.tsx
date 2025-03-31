@@ -21,7 +21,9 @@ const [likeCount,setLikeCount] =useState(0)
     }
 
     function handleLikeComment() {
-        setLikeCount(likeCount + 1)
+        setLikeCount((state) => { 
+            return state +1
+        })
     }
 
     return(
@@ -44,7 +46,7 @@ const [likeCount,setLikeCount] =useState(0)
                     <p>{content}</p>
                 </div>
                 <footer>
-                    <button onClick={() => setLikeCount(likeCount + 1) }>
+                    <button onClick={handleLikeComment}>
                         <ThumbsUp/>
                         aplaudir <span>{likeCount}</span>
                     </button>
@@ -54,4 +56,6 @@ const [likeCount,setLikeCount] =useState(0)
         </div>
     )
 }  
+
+
 
