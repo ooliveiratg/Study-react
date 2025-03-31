@@ -6,12 +6,6 @@ import './global.css'
 
 //Estado
 
-const comments = [
-  1,
-  2,
-  3,
-
- ]
 
 export default function App(){
    // author:{avatar_url: "", name: "",role: }
@@ -88,3 +82,4 @@ export default function App(){
    </div>
   );
 }
+''
